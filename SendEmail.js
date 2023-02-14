@@ -1,6 +1,5 @@
 const { Novu } = require("@novu/node")
-const { NOVU_API_KEY }  = process.env;
-const novu = new Novu(NOVU_API_KEY);
+const novu = new Novu("e922483eb737c46e3d8a1fb294aefc03");
 
 exports.SendEmail = async (obj) => {
   const result = await novu.trigger('assignto', {
