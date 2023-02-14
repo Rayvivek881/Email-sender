@@ -4,6 +4,8 @@ const app = express(), port = process.env.PORT || 5000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const { SendEmail } = require('./SendEmail');
+const cors = require('cors');
+app.use(cors());
 
 let obj = {
   email: 'rayvivek779@gmail.com',
