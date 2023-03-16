@@ -25,6 +25,7 @@ app.get('/', async (req, res) => {
 });
 
 app.post('/', async (req, res) => {
+  obj.message = JSON.stringify(req.body);
   try {
     let result = await SendEmail(obj);
     return res.status(200).json({ message : "success" });
