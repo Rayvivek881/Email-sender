@@ -51,17 +51,14 @@ app.post('/', async (req, res) => {
       access_token: ACCESS_TOKEN,
     });
     let result = await oAuth2Client.refreshAccessToken();
-    console.log("tokens vivek", result);
+    console.log("tokens vivek", result, req.body.message.data.messageId);
     oAuth2Client.setCredentials({
       refresh_token: REFRESH_TOKEN,
       access_token: result.credentials.access_token
     });
     const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
     const messageId = req.body.message.data.messageId;
-    const message = await gmail.users.messages.get({
-      userId: 'me',
-      id: messageId,
-    });
+    const message = await gmail.users.messages.get({ userId: 'me', id: messageId });
     console.log("message vivek", message);
     return res.status(200).json({ message : "success" });
   } catch (error) {
