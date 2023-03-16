@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    // "build": "npx babel server.js --out-dir dist",
     "dev": "npx nodemon server.js"
   },
   "author": "",

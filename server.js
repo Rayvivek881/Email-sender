@@ -34,22 +34,25 @@ app.get('/', async (req, res) => {
 
 app.post('/', async (req, res) => {
   try {
-    const oAuth2Client = new OAuth2Client( CLIENT_ID, CLIENT_SECRET, REDIRECT_URI );
-    oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN, access_token: ACCESS_TOKEN });
-    const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
-    const messageId = req.body.message.data.messageId;
-    const message = await gmail.users.messages.get({
-      userId: 'me',
-      id: messageId,
-    });
-    let temp = {
-      email: 'rayvivek779@gmail.com',
-      type: 'type',
-      name: 'name',
-      mobile: 'mobile',
-      message: JSON.stringify(message.data),
-    }
-    let result = await SendEmail(temp);
+    // const oAuth2Client = new OAuth2Client( CLIENT_ID, CLIENT_SECRET, REDIRECT_URI );
+    // oAuth2Client.setCredentials({ 
+    //   refresh_token: REFRESH_TOKEN, 
+    //   access_token: ACCESS_TOKEN 
+    // });
+    // const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
+    // const messageId = req.body.message.data.messageId;
+    // const message = await gmail.users.messages.get({
+    //   userId: 'me',
+    //   id: messageId,
+    // });
+    // let temp = {
+    //   email: 'rayvivek779@gmail.com',
+    //   type: 'type',
+    //   name: 'name',
+    //   mobile: 'mobile',
+    //   message: JSON.stringify(message.data),
+    // }
+    let result = await SendEmail(obj);
     return res.status(200).json({ message : "success" });
   } catch (error) {
     res.status(500).json({ message : "failure", error });
