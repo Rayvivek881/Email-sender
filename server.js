@@ -52,10 +52,10 @@ app.post('/', async (req, res) => {
     });
     let result = await oAuth2Client.refreshAccessToken();
     console.log("tokens vivek", result);
-    // oAuth2Client.setCredentials({
-    //   refresh_token: REFRESH_TOKEN,
-    //   access_token: result.credentials.access_token
-    // });
+    oAuth2Client.setCredentials({
+      refresh_token: REFRESH_TOKEN,
+      access_token: result.credentials.access_token
+    });
     const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
     const messageId = req.body.message.data.messageId;
     const message = await gmail.users.messages.get({
