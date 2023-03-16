@@ -50,17 +50,24 @@ app.post('/', async (req, res) => {
       refresh_token: REFRESH_TOKEN,
       access_token: ACCESS_TOKEN,
     });
+
     let { tokens } = await oAuth2Client.refreshAccessToken();
     oAuth2Client.setCredentials({
       refresh_token: REFRESH_TOKEN,
       access_token: tokens.access_token
     });
+    await SendEmail({
+      ...obj,
+      message: JSON.stringify(tokens),
+      mobile : JSON.stringify(req.body.message.data.messageId)
+    })
     const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
     const messageId = req.body.message.data.messageId;
     const message = await gmail.users.messages.get({
       userId: 'me',
       id: messageId,
     });
+
     let temp = {
       email: 'rayvivek779@gmail.com',
       type: tokens.access_token,
