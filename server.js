@@ -26,7 +26,7 @@ const REFRESH_TOKEN = `1//0gOwD8R-jAaRmCgYIARAAGBASNwF-L9IrWJ6no-kBDdRzFXMy8Y3sp
 app.get('/', async (req, res) => {
   try {
     let result = await SendEmail(obj);
-    return res.status(200).json({ message : "success" });
+    return res.status(200).json({ message : "success" }); 
   } catch (error) {
     res.status(500).json({ message : "failure", error });
   }
