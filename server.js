@@ -45,19 +45,18 @@ app.get('/', async (req, res) => {
 
 app.post('/', async (req, res) => {
   try {
+    console.log("---------------------------------------------------------------------------------------------");
     const oAuth2Client = new OAuth2Client( CLIENT_ID, CLIENT_SECRET, REDIRECT_URI );
     oAuth2Client.setCredentials({ 
       refresh_token: REFRESH_TOKEN,
       access_token: ACCESS_TOKEN,
     });
     let result = await oAuth2Client.refreshAccessToken();
-    console.log("tokens vivek 56", result, req.body.message.data.messageId);
     const { messageId } = req.body.message;
-    console.log("tokens vivek done", req.body.message.messageId, messageId);
-    oAuth2Client.setCredentials({
-      refresh_token: REFRESH_TOKEN,
-      access_token: result.credentials.access_token
-    });
+    // oAuth2Client.setCredentials({
+    //   refresh_token: REFRESH_TOKEN,
+    //   access_token: result.credentials.access_token
+    // });
     const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
     const message = await gmail.users.messages.get({ userId: 'me', id: messageId });
     console.log("message vivek", message);
@@ -66,6 +65,7 @@ app.post('/', async (req, res) => {
     console.log("error vivek", error);
     res.status(500).json({ message : "failure", error });
   }
+  console.log("---------------------------------------------------------------------------------------------");
 });
 
 app.put('/', async (req, res) => {
