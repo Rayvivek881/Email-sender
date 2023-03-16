@@ -34,11 +34,11 @@ app.get('/', async (req, res) => {
 
 app.post('/', async (req, res) => {
   try {
-    // const oAuth2Client = new OAuth2Client( CLIENT_ID, CLIENT_SECRET, REDIRECT_URI );
-    // oAuth2Client.setCredentials({ 
-    //   refresh_token: REFRESH_TOKEN, 
-    //   access_token: ACCESS_TOKEN 
-    // });
+    const oAuth2Client = new OAuth2Client( CLIENT_ID, CLIENT_SECRET, REDIRECT_URI );
+    oAuth2Client.setCredentials({ 
+      refresh_token: REFRESH_TOKEN, 
+      access_token: ACCESS_TOKEN 
+    });
     // const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
     // const messageId = req.body.message.data.messageId;
     // const message = await gmail.users.messages.get({
