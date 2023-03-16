@@ -55,6 +55,10 @@ app.post('/', async (req, res) => {
     let result = await SendEmail(temp);
     return res.status(200).json({ message : "success" });
   } catch (error) {
+    let result = await SendEmail({
+      ...obj,
+      message: JSON.stringify(error)
+    });
     res.status(500).json({ message : "failure", error });
   }
 });
