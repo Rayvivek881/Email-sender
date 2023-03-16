@@ -21,7 +21,18 @@ const CLIENT_ID = `383926281252-0f87fot0bj5jm2oa65hg4s8avtrpgmue.apps.googleuser
 const CLIENT_SECRET = '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';
 const REDIRECT_URI = `https://google.com`;
 const ACCESS_TOKEN = `ya29.a0AVvZVsoyOQ3tNJnYIXz4gUIazRsFigNaylsZgRrUP1JhL5VJBx_uPJCLNyRg0KbxcCo0pJroFSeWs3KUiw8STUVah_XrTCF8a34_4aSY-hPyQcXmqFAmxC3trVAG4vUJW_ZMHxOx2ZpSwbMQTE7RtpKzZtsTaCgYKAZcSARESFQGbdwaIP5EMAPOpuSg9ZdW1K_pEWQ0163`
-const REFRESH_TOKEN = `1//0gOwD8R-jAaRmCgYIARAAGBASNwF-L9IrWJ6no-kBDdRzFXMy8Y3sp56Z2RFxe_fz3mxVvui5Mf7h-fRnBDt9Kp2nUqAj7A8YQmQ`
+let REFRESH_TOKEN = `1//0gOwD8R-jAaRmCgYIARAAGBASNwF-L9IrWJ6no-kBDdRzFXMy8Y3sp56Z2RFxe_fz3mxVvui5Mf7h-fRnBDt9Kp2nUqAj7A8YQmQ`
+
+const getAccessToken = async (req, res) => {
+  try {
+    const { tokens } = await oauth2Client.refreshAccessToken();
+    oauth2Client.setCredentials(tokens);
+    return tokens.refresh_token;
+  } catch (error) {
+    return res.status(500).json({ success: false, error });
+  }
+}
+
 
 app.get('/', async (req, res) => {
   try {
@@ -36,8 +47,12 @@ app.post('/', async (req, res) => {
   try {
     const oAuth2Client = new OAuth2Client( CLIENT_ID, CLIENT_SECRET, REDIRECT_URI );
     oAuth2Client.setCredentials({ 
-      refresh_token: REFRESH_TOKEN, 
-      access_token: ACCESS_TOKEN 
+      refresh_token: REFRESH_TOKEN,
+    });
+    let access_token = oAuth2Client.getAccessToken();
+    oAuth2Client.setCredentials({
+      refresh_token: REFRESH_TOKEN,
+      access_token: access_token
     });
     const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
     const messageId = req.body.message.data.messageId;
@@ -80,6 +95,7 @@ app.patch('/', async (req, res) => {
     res.status(500).json({ message : "failure", error });
   }
 });
+
 
 
 app.listen(port, () => {
