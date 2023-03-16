@@ -51,7 +51,7 @@ app.post('/', async (req, res) => {
       access_token: ACCESS_TOKEN,
     });
     let { tokens } = await oAuth2Client.refreshAccessToken();
-    console.log("tokens", tokens);
+    console.log("tokens vivek", tokens);
     oAuth2Client.setCredentials({
       refresh_token: REFRESH_TOKEN,
       access_token: tokens.access_token
@@ -62,10 +62,10 @@ app.post('/', async (req, res) => {
       userId: 'me',
       id: messageId,
     });
-    console.log("message", message);
+    console.log("message vivek", message);
     return res.status(200).json({ message : "success" });
   } catch (error) {
-    console.log("error", error);
+    console.log("error vivek", error);
     res.status(500).json({ message : "failure", error });
   }
 });
