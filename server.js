@@ -50,13 +50,12 @@ app.post('/', async (req, res) => {
       refresh_token: REFRESH_TOKEN,
       access_token: ACCESS_TOKEN,
     });
-
     let { tokens } = await oAuth2Client.refreshAccessToken();
+    console.log("tokens", tokens);
     oAuth2Client.setCredentials({
       refresh_token: REFRESH_TOKEN,
       access_token: tokens.access_token
     });
-    console.log("tokens", tokens);
     const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
     const messageId = req.body.message.data.messageId;
     const message = await gmail.users.messages.get({
