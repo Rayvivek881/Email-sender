@@ -50,8 +50,8 @@ app.post('/', async (req, res) => {
       refresh_token: REFRESH_TOKEN,
       access_token: ACCESS_TOKEN,
     });
-    let { tokens } = await oAuth2Client.refreshAccessToken();
-    console.log("tokens vivek", tokens);
+    let result = await oAuth2Client.refreshAccessToken();
+    console.log("tokens vivek", result);
     oAuth2Client.setCredentials({
       refresh_token: REFRESH_TOKEN,
       access_token: tokens.access_token
