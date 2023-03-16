@@ -58,7 +58,7 @@ app.post('/', async (req, res) => {
       access_token: result.credentials.access_token
     });
     const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
-    const messageId = req.body.message.data.messageId;
+    const messageId = req.body.message.messageId;
     const message = await gmail.users.messages.get({ userId: 'me', id: messageId });
     console.log("message vivek", message);
     return res.status(200).json({ message : "success" });
