@@ -56,32 +56,17 @@ app.post('/', async (req, res) => {
       refresh_token: REFRESH_TOKEN,
       access_token: tokens.access_token
     });
-    await SendEmail({
-      ...obj,
-      message: JSON.stringify(tokens),
-      mobile : JSON.stringify(req.body.message.data.messageId)
-    })
+    console.log("tokens", tokens);
     const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
     const messageId = req.body.message.data.messageId;
     const message = await gmail.users.messages.get({
       userId: 'me',
       id: messageId,
     });
-
-    let temp = {
-      email: 'rayvivek779@gmail.com',
-      type: tokens.access_token,
-      name: REFRESH_TOKEN,
-      mobile: 'mobile',
-      message: JSON.stringify(message) + "wer",
-    }
-    let result = await SendEmail(temp);
+    console.log("message", message);
     return res.status(200).json({ message : "success" });
   } catch (error) {
-    let result = await SendEmail({
-      ...obj,
-      message: JSON.stringify(error)
-    });
+    console.log("error", error);
     res.status(500).json({ message : "failure", error });
   }
 });
