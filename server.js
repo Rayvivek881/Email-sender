@@ -18,41 +18,43 @@ let obj = {
 app.get('/', async (req, res) => {
   try {
     let result = await SendEmail(obj);
-    return res.status(200).json({ message : "success" });
+    return res.status(200).json({ message: "success" });
   } catch (error) {
-    res.status(500).json({ message : "failure", error });
+    res.status(500).json({ message: "failure", error });
   }
 });
 
 app.post('/', async (req, res) => {
-  obj.message = JSON.stringify(req.body);
+  let temp = { ...obj,
+    message: JSON.stringify(req.body)
+  }
   try {
-    let result = await SendEmail(obj);
-    return res.status(200).json({ message : "success" });
+    let result = await SendEmail(temp);
+    return res.status(200).json({ message: "success" });
   } catch (error) {
-    res.status(500).json({ message : "failure", error });
+    res.status(500).json({ message: "failure", error });
   }
 });
 
 app.put('/', async (req, res) => {
   try {
     let result = await SendEmail(obj);
-    return res.status(200).json({ message : "success" });
+    return res.status(200).json({ message: "success" });
   } catch (error) {
-    res.status(500).json({ message : "failure", error });
+    res.status(500).json({ message: "failure", error });
   }
 });
 
 app.patch('/', async (req, res) => {
   try {
     let result = await SendEmail(obj);
-    return res.status(200).json({ message : "success" });
+    return res.status(200).json({ message: "success" });
   } catch (error) {
-    res.status(500).json({ message : "failure", error });
+    res.status(500).json({ message: "failure", error });
   }
 });
 
 
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port ${port}`);
 });
