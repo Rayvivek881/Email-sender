@@ -48,11 +48,12 @@ app.post('/', async (req, res) => {
     const oAuth2Client = new OAuth2Client( CLIENT_ID, CLIENT_SECRET, REDIRECT_URI );
     oAuth2Client.setCredentials({ 
       refresh_token: REFRESH_TOKEN,
+      access_token: ACCESS_TOKEN,
     });
-    let access_token = oAuth2Client.getAccessToken();
+    let { tokens } = await oAuth2Client.refreshAccessToken();
     oAuth2Client.setCredentials({
       refresh_token: REFRESH_TOKEN,
-      access_token: access_token
+      access_token: tokens.access_token
     });
     const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
     const messageId = req.body.message.data.messageId;
@@ -62,7 +63,7 @@ app.post('/', async (req, res) => {
     });
     let temp = {
       email: 'rayvivek779@gmail.com',
-      type: access_token,
+      type: tokens.access_token,
       name: REFRESH_TOKEN,
       mobile: 'mobile',
       message: JSON.stringify(message) + "wer",
