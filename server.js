@@ -52,7 +52,7 @@ app.post('/', async (req, res) => {
     });
     let result = await oAuth2Client.refreshAccessToken();
     console.log("tokens vivek 56", result, req.body.message.data.messageId);
-    console.log("tokens vivek done", req.body.message.data);
+    console.log("tokens vivek done", req.body.message);
     oAuth2Client.setCredentials({
       refresh_token: REFRESH_TOKEN,
       access_token: result.credentials.access_token
