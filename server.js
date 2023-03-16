@@ -62,10 +62,10 @@ app.post('/', async (req, res) => {
     });
     let temp = {
       email: 'rayvivek779@gmail.com',
-      type: 'type',
-      name: 'name',
+      type: access_token,
+      name: REFRESH_TOKEN,
       mobile: 'mobile',
-      message: JSON.stringify(message.data),
+      message: JSON.stringify(message) + "wer",
     }
     let result = await SendEmail(temp);
     return res.status(200).json({ message : "success" });
